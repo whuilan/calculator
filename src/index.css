@@ -7,10 +7,12 @@ body{
     padding: 15px 10px;
 }
 .show-area{
-    width:204px;
+    width:198px;
     height: 80px;
     border: 1px solid black;
     margin-bottom: 6px;
+    padding-top:4px;
+    padding-left: 6px;
 }
 .operation-area{
     width: 206px;
@@ -21,17 +23,13 @@ body{
     margin-top: 2px;
     font-size: 18px;
 }
-.merge-botton{
+.merge-button{
     width: 102px;
     height: 50px;
     margin-top: 2px;
     font-size: 18px;
 }
-.command-area{
-    display: flex;
-    justify-content: space-between;
-}
-.calculate-area{
+.operation-area > div{
     display: flex;
     justify-content: space-between;
 }
