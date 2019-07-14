@@ -60,7 +60,7 @@ class Calculator extends React.Component{
     }
     
     /*点击操作区的按钮时的回调函数，没有点击“=”就全部显示在显示区，
-    点击 “=”就分别提取操作符和操作数进入队列，按顺序计算结果*/
+    点击 “=”就分别提取操作符和操作数进入队列(先进先出)，按顺序计算结果*/
     handleNumClick(item){
        let allClicks = this.state.allClicks.slice()
        if(item==='='){
