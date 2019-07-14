@@ -2,14 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
+/*基础组件：占一个格子的按钮 */
 function SingleButton(props){
         return <button className="button" onClick={props.onClick}>{props.item}</button>
 }
 
+/*基础组件：占一个格子的按钮 */
 function MergedButton(props){
         return <button className="merge-button" onClick={props.onClick}>{props.item}</button>
 }
 
+/*点击区，包括数字、操作符及清零、返回等指令*/
 class  OperationArea extends React.Component{
     render(){
         const firstArea = []
@@ -55,7 +58,9 @@ class Calculator extends React.Component{
             result:null 
         }
     }
-
+    
+    /*点击操作区的按钮时的回调函数，没有点击“=”就全部显示在显示区，
+    点击 “=”就分别提取操作符和操作数进入队列，按顺序计算结果*/
     handleNumClick(item){
        let allClicks = this.state.allClicks.slice()
        if(item==='='){
@@ -90,20 +95,20 @@ class Calculator extends React.Component{
             else 
                 throw Error;
         }
-        // console.log(result)
         this.setState({
             result:result
         })
-       }else{
+       }
+       else{
         allClicks+=item
         this.setState({
             allClicks:allClicks
         })
         console.log(allClicks)
-        // console.log(typeof(allClicks)) 是string
        }
     }
 
+    /*点击清零键将输入置零 */
     handleResetClick(){
         this.setState({
             allClicks:'',
@@ -111,8 +116,8 @@ class Calculator extends React.Component{
         })
     }
 
+    /*点击退回键，删除最后一个字符 */
     handleGoBackClick(){
-        console.log("Go back!")
         let allClicks = this.state.allClicks.slice()
         if(!allClicks){
            return;
@@ -145,6 +150,7 @@ ReactDOM.render(
     document.getElementById("root")
 )
 
+/*运算时需要用到的数据结构：队列 */
 class Queue{
     constructor(){
         this.items = []
