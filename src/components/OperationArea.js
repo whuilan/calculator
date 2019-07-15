@@ -2,7 +2,7 @@ import React from 'react'
 
 /*基础组件：占一个格子的按钮 */
 function SingleButton(props){
-  return <button className="button" onClick={props.onClick}>{props.item}</button>
+  return <button className="single-button" onClick={props.onClick}>{props.item}</button>
 }
 
 /*基础组件：占一个格子的按钮 */
@@ -40,7 +40,7 @@ export default class OperationArea extends React.Component {
           <div className="number-area">
             {numberArea}
           </div>
-          <div className="operator-area">
+          <div className="operator-pad">
             {operatorArea}
           </div>
         </div>

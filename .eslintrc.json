@@ -36,6 +36,7 @@
             "never"
         ],
         "react/prop-types": "off",
-        "no-console": 1
+        "no-console": 1,
+        "react/jsx-equals-spacing": 2
     }
 }

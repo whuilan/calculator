@@ -3,6 +3,20 @@ import OperationArea from './components/OperationArea'
 import { Queue } from './utils/Queue'
 import './index.css'
 
+const opt = (op, result, vals) => {
+  if(op==='+')
+    result=result+vals
+  else if(op==='-')
+    result=result-vals
+  else if(op==='*')
+    result=result*vals
+  else if(op==='/')
+    result=result/vals
+  else 
+    throw Error
+  return result
+}
+
 export default class Calculator extends React.Component{
   constructor(props){
     super(props)
@@ -24,17 +38,13 @@ export default class Calculator extends React.Component{
           ops.enqueue(cha)
         }
       }
-      console.log(ops)
       const nums = allClicks.split(/[*/+-]/)
-      console.log(nums)
       const vals = new Queue()
       for(let num of nums){
         vals.enqueue(parseFloat(num))
       }
-      console.log(vals)
       let result = vals.dequeue()
       const size = ops.size()
-      console.log(size)
       for(let i=0;i<size;i++){
         const op = ops.dequeue()
         result = this.opt(op, result, vals.dequeue())
@@ -48,22 +58,7 @@ export default class Calculator extends React.Component{
       this.setState({
         allClicks:allClicks
       })
-      console.log(allClicks)
     }
-  }
-
-  opt(op, result, vals) {
-    if(op==='+')
-      result=result+vals
-    else if(op==='-')
-      result=result-vals
-    else if(op==='*')
-      result=result*vals
-    else if(op==='/')
-      result=result/vals
-    else 
-      throw Error
-    return result
   }
 
   handleNumClickV2 (item) {
@@ -78,7 +73,7 @@ export default class Calculator extends React.Component{
     // 输入为=时结算
     if (item === '=') {
       // 判断有无输入或上次输入是否为运算符，是则不运算
-      if (allClicks.length == 0 || ['+', '-', '*', '/'].indexOf(allClicks.charAt(allClicks.length - 1)) >= 0) {
+      if (allClicks.length === 0 || ['+', '-', '*', '/'].indexOf(allClicks.charAt(allClicks.length - 1)) >= 0) {
         return
       }
       let result = 0, lastOpt = -1
@@ -89,14 +84,14 @@ export default class Calculator extends React.Component{
             result = parseFloat(allClicks.substring(0, i))
           } else {
             // 计算上个操作符，左侧：已经结合成result，右侧: 到下个运算符之间的值
-            result = this.opt(allClicks.charAt(lastOpt-1), result, parseFloat(allClicks.substring(lastOpt, i)))
+            result = opt(allClicks.charAt(lastOpt), result, parseFloat(allClicks.substring(lastOpt+1, i)))
           }
           // 记录上个操作符位置
-          lastOpt = i+1
+          lastOpt = i
         }
       }
       // 最后剩余一个数，直接运算
-      result = lastOpt == -1 ? parseFloat(allClicks) : this.opt(allClicks.charAt(lastOpt-1), result, parseFloat(allClicks.substring(lastOpt, allClicks.length)))
+      result = lastOpt === -1 ? parseFloat(allClicks) : opt(allClicks.charAt(lastOpt), result, parseFloat(allClicks.substring(lastOpt+1, allClicks.length)))
       this.setState({
         result
       })
@@ -110,21 +105,22 @@ export default class Calculator extends React.Component{
   /*点击清零键将输入置零 */
   handleResetClick(){
     this.setState({
-      allClicks:'',
+      allClicks : '',
       result:null
     })
   }
 
   /*点击退回键，删除最后一个字符 */
   handleGoBackClick(){
-    let allClicks = this.state.allClicks.slice()
+    // UPDATE: 解析state时尽量用parse形式
+    let { allClicks } = this.state
     if(!allClicks){
       return
     }
     allClicks = allClicks.substring(0,allClicks.length-1)
-    console.log(allClicks)
+    // UPDATE: 赋值时尽量用parse形式
     this.setState({
-      allClicks:allClicks
+      allClicks
     })
   }
 
