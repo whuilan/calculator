@@ -6,43 +6,60 @@
     justify-content: center;
 }
 .calculator{
-    width: 206px;
+    width: 200px;
     border: 1px solid black;
-    padding: 15px 10px;
+    padding: 10px;
+    font-size: 18px;
 }
+/* 显示区域 */
 .show-area{
-    width:198px;
     height: 80px;
     border: 1px solid black;
     margin-bottom: 6px;
     padding-top:4px;
     padding-left: 6px;
+    background-color: white;
 }
+
+/* 操作区域 */
 .operation-area{
-    width: 206px;
+    width: 100%;
 }
-.button{
-    width:50px;
+
+.single-button{
+    flex-grow: 1;
+    width: calc(32% - 1px);
     height: 50px;
-    margin-top: 2px;
-    font-size: 18px;
+    margin: 1px;
 }
+
 .merge-button{
-    width: 102px;
+    width: calc(66% - 1px); 
     height: 50px;
-    margin-top: 2px;
-    font-size: 18px;
+    margin: 1px;
 }
-.operation-area > div{
+.operation-area > div {
+    width: 100%;
     display: flex;
+    align-items: center;
     justify-content: space-between;
 }
+
 .number-area{
-    width:154px;
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
 }
-.operator-area{
-    width: 50px
+
+/* 左侧的加减乘除控制板，需要重新声明singleButton的宽度，否则仍会以33%定义 */
+.operator-pad {
+    width: 33%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.operator-pad > button {
+    width: calc(100% - 1px);
 }
