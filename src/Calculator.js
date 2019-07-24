@@ -3,15 +3,15 @@ import OperationArea from './components/OperationArea'
 import { Queue } from './utils/Queue'
 import './index.css'
 
-const opt = (op, result, vals) => {
+const opt = (op, result, val) => {
   if(op==='+')
-    result=result+vals
+    result=result+val
   else if(op==='-')
-    result=result-vals
+    result=result-val
   else if(op==='*')
-    result=result*vals
+    result=result*val
   else if(op==='/')
-    result=result/vals
+    result=result/val
   else 
     throw Error
   return result
@@ -50,13 +50,13 @@ export default class Calculator extends React.Component{
         result = this.opt(op, result, vals.dequeue())
       }
       this.setState({
-        result:result
+        result
       })
     }
     else{
       allClicks+=item
       this.setState({
-        allClicks:allClicks
+        allClicks
       })
     }
   }
@@ -142,6 +142,4 @@ export default class Calculator extends React.Component{
     )
   }
 }
-
-/*运算时需要用到的数据结构：队列 */
 
